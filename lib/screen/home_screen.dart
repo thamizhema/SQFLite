@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_practice/helpers/drawer_nav.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('TODO List From SQFLite'),
       ),
+      drawer: DrawerNavigation(),
     );
   }
 }
