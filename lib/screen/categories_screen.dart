@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_practice/models/category.dart';
 import 'package:sqflite_practice/screen/home_screen.dart';
+import 'package:sqflite_practice/services/categories_service.dart';
 
 class CategoriesScreen extends StatefulWidget {
   @override
@@ -7,6 +9,11 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  TextEditingController _categoriesNameController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  var _category = Category();
+  var _categroryService = CategoryService();
+
   _showFormDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -16,7 +23,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             title: Text('Categories'),
             actions: [
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  _category.name = _categoriesNameController.text;
+                  _category.description = _descriptionController.text;
+                  _categroryService.saveCategory(_category);
+                },
                 child: Text('Save'),
                 color: Colors.blue,
               ),
@@ -30,14 +41,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               child: Column(
                 children: [
                   TextField(
+                    controller: _categoriesNameController,
                     decoration: InputDecoration(
                         hintText: 'Write a Categories',
                         labelText: 'Categories'),
                   ),
                   TextField(
+                    controller: _descriptionController,
                     decoration: InputDecoration(
-                        hintText: 'Write a Categories',
-                        labelText: 'Categories'),
+                        hintText: 'Write a Description',
+                        labelText: 'Description'),
                   )
                 ],
               ),
